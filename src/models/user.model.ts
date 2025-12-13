@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import type { InferSchemaType, HydratedDocument } from "mongoose";
 const { Schema, model } = mongoose;
 
+// schema
 const userSchema = new Schema(
   {
     email: { type: String, required: true, unique: true },

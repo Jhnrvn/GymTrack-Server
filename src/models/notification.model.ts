@@ -1,6 +1,8 @@
 import mongoose from "mongoose";
+import type { InferSchemaType, HydratedDocument } from "mongoose";
 const { Schema, model } = mongoose;
 
+// schema
 const notificationSchema = new Schema(
   {
     role_target: { type: [String], enum: ["Admin", "Staff"], default: [] },
@@ -27,7 +29,7 @@ const notificationSchema = new Schema(
     readBy: [
       {
         type: Schema.Types.ObjectId,
-        ref: "Admin",
+        ref: "User",
       },
     ],
     details: {
@@ -38,6 +40,9 @@ const notificationSchema = new Schema(
   { timestamps: true }
 );
 
-const Notification = mongoose.models.Notification || model("Notification", notificationSchema);
+// types
+export type Notification = InferSchemaType<typeof notificationSchema>;
+export type NotificationDocument = HydratedDocument<Notification>;
 
-export default Notification;
+// model
+export const NotificationModel = mongoose.models.Notification || model("Notification", notificationSchema);

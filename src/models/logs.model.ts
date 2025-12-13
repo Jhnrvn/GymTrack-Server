@@ -1,6 +1,8 @@
 import mongoose from "mongoose";
+import type { InferSchemaType, HydratedDocument } from "mongoose";
 const { Schema, model } = mongoose;
 
+// schema
 const logSchema = new Schema(
   {
     action: {
@@ -27,10 +29,10 @@ const logSchema = new Schema(
       ],
       required: true,
     },
-    membership: { type: Schema.Types.ObjectId, ref: "Plan" },
+    membership: { type: Schema.Types.ObjectId, ref: "Membership" },
     product: { type: Schema.Types.ObjectId, ref: "Product" },
     member: { type: Schema.Types.ObjectId, ref: "Member" },
-    user: { type: Schema.Types.ObjectId, ref: "Admin" },
+    user: { type: Schema.Types.ObjectId, ref: "User" },
     equipment: { type: Schema.Types.ObjectId, ref: "Equipment" },
     message: { type: String, required: true },
     amount: { type: Number },
@@ -42,5 +44,9 @@ const logSchema = new Schema(
   }
 );
 
-const Log = mongoose.models.Logs || model("Logs", logSchema);
-export default Log;
+// types
+export type Log = InferSchemaType<typeof logSchema>;
+export type LogDocument = HydratedDocument<Log>;
+
+// model
+export const LogModel = mongoose.models.Logs || model("Logs", logSchema);

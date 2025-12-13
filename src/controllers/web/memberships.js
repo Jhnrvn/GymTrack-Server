@@ -1,7 +1,7 @@
-import Member from "../../models/Member.js";
-import MembershipPlan from "../../models/MembershipPlan.js";
-import Equipment from "../../models/Equipment.js";
-import Review from "../../models/Review.js";
+import Member from "../../models/member.model.js";
+import MembershipPlan from "../../models/membershipPlan.model.js";
+import Equipment from "../../models/equipment.model.js";
+import Review from "../../models/review.model.js";
 
 /**
  * function to get all the active memberships

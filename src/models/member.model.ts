@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import type { InferSchemaType, HydratedDocument } from "mongoose";
 const { Schema, model } = mongoose;
 
 // member plan history schema
@@ -58,5 +59,9 @@ memberSchema.virtual("transactions", {
 memberSchema.set("toObject", { virtuals: true });
 memberSchema.set("toJSON", { virtuals: true });
 
-const Member = mongoose.models.Member || model("Member", memberSchema);
-export default Member;
+// types
+export type Member = InferSchemaType<typeof memberSchema>;
+export type MemberDocument = HydratedDocument<Member>;
+
+// model
+export const MemberModel = mongoose.models.Member || model("Member", memberSchema);

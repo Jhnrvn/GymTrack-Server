@@ -1,11 +1,14 @@
 import mongoose from "mongoose";
+import type { InferSchemaType, HydratedDocument } from "mongoose";
 const { Schema, model } = mongoose;
 
+// plan feature schema
 const planFeatureSchema = new Schema({
   id: { type: String, required: true },
   value: { type: String, required: true },
 });
 
+// membership schema
 const membershipPlanSchema = new Schema(
   {
     plan_name: { type: String, required: true },
@@ -20,6 +23,9 @@ const membershipPlanSchema = new Schema(
   }
 );
 
-const MembershipPlan = mongoose.models.Plan || model("Plan", membershipPlanSchema);
+// types
+export type Plan = InferSchemaType<typeof membershipPlanSchema>;
+export type PlanDocument = HydratedDocument<Plan>;
 
-export default MembershipPlan;
+// model
+export const Membership = mongoose.models.Plan || model("Membership", membershipPlanSchema);

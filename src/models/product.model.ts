@@ -1,6 +1,8 @@
 import mongoose from "mongoose";
+import type { InferSchemaType, HydratedDocument } from "mongoose";
 const { Schema, model } = mongoose;
 
+// schema
 const productSchema = new Schema(
   {
     product_name: { type: String, required: true },
@@ -16,5 +18,9 @@ const productSchema = new Schema(
   }
 );
 
-const Product = mongoose.models.Product || model("Product", productSchema);
-export default Product;
+// types
+export type Product = InferSchemaType<typeof productSchema>;
+export type ProductDocument = HydratedDocument<Product>;
+
+// models
+export const ProductModel = mongoose.models.Product || model("Product", productSchema);

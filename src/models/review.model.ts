@@ -1,6 +1,8 @@
 import mongoose from "mongoose";
+import type { InferSchemaType, HydratedDocument } from "mongoose";
 const { Schema, model } = mongoose;
 
+// schema
 const reviewSchema = new Schema(
   {
     member: { type: Schema.Types.ObjectId, ref: "Member", required: true },
@@ -14,5 +16,9 @@ const reviewSchema = new Schema(
   }
 );
 
-const Review = mongoose.models.Review || model("Review", reviewSchema);
-export default Review;
+// types
+export type Review = InferSchemaType<typeof reviewSchema>;
+export type ReviewDocument = HydratedDocument<Review>;
+
+// model
+export const ReviewModel = mongoose.models.Review || model("Review", reviewSchema);

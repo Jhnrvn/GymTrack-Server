@@ -1,6 +1,8 @@
 import mongoose from "mongoose";
+import type { InferSchemaType, HydratedDocument } from "mongoose";
 const { Schema, model } = mongoose;
 
+// schema
 const orderSchema = new Schema(
   {
     member: { type: Schema.Types.ObjectId, ref: "Member", required: true },
@@ -17,5 +19,9 @@ const orderSchema = new Schema(
   }
 );
 
-const Orders = mongoose.models.PendingOrder || model("Orders", orderSchema);
-export default Orders;
+// types
+export type Order = InferSchemaType<typeof orderSchema>;
+export type OrderDocument = HydratedDocument<Order>;
+
+// model
+export const OrderModel = mongoose.models.PendingOrder || model("Orders", orderSchema);

@@ -1,6 +1,8 @@
 import mongoose from "mongoose";
+import type { InferSchemaType, HydratedDocument } from "mongoose";
 const { Schema, model } = mongoose;
 
+// schema
 const equipmentSchema = new Schema(
   {
     equipment_name: { type: String, required: true },
@@ -14,5 +16,9 @@ const equipmentSchema = new Schema(
   }
 );
 
-const Equipment = mongoose.models.Equipment || model("Equipment", equipmentSchema);
-export default Equipment;
+// types
+export type Equipment = InferSchemaType<typeof equipmentSchema>;
+export type EquipmentDocument = HydratedDocument<Equipment>;
+
+// model
+export const EquipmentModel = mongoose.models.Equipment || model("Equipment", equipmentSchema);

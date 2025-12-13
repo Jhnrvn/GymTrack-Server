@@ -1,6 +1,8 @@
 import mongoose from "mongoose";
+import type { InferSchemaType, HydratedDocument } from "mongoose";
 const { Schema, model } = mongoose;
 
+// schema
 const transactionSchema = new Schema(
   {
     member: { type: Schema.Types.ObjectId, ref: "Member", required: true },
@@ -17,7 +19,7 @@ const transactionSchema = new Schema(
     product_quantity: { type: Number, default: 0 },
 
     // Membership payment
-    membership_plan: { type: Schema.Types.ObjectId, ref: "Plan" },
+    membership_plan: { type: Schema.Types.ObjectId, ref: "Membership" },
     startDate: { type: Date },
     endDate: { type: Date },
     discount_rate: { type: Number, default: 0 },
@@ -37,8 +39,9 @@ const transactionSchema = new Schema(
   { timestamps: true }
 );
 
-const Transaction =
-  mongoose.models.Transaction || model("Transaction", transactionSchema);
+// types
+export type Transaction = InferSchemaType<typeof transactionSchema>;
+export type TransactionDocument = HydratedDocument<Transaction>;
 
-export default Transaction;
-
+// models
+export const TransactionModel = mongoose.models.Transaction || model("Transaction", transactionSchema);
