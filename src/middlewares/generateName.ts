@@ -17,7 +17,7 @@ const generateFirstAndLastName = (length: number): User => {
 };
 
 // function that generate name
-const generateName = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+export const generateName = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
     // initialize variables
     let firstName: string = "";
@@ -59,4 +59,4 @@ const generateName = async (req: Request, res: Response, next: NextFunction): Pr
   }
 };
 
-export default generateName;
+

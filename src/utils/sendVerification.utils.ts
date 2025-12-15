@@ -1,17 +1,23 @@
 import { google } from "googleapis";
 import "dotenv/config";
 import fs from "fs";
+// types
+import type { BuildEmail } from "./utils.dto.js";
 
 const { app_email, CLIENT_ID, CLIENT_SECRET, REDIRECT_URI, REFRESH_TOKEN, verify_URL } = process.env;
 
 const oAuth2Client = new google.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URI);
 
-oAuth2Client.setCredentials({ refresh_token: REFRESH_TOKEN });
+const creds: { refresh_token: string } = { refresh_token: REFRESH_TOKEN || "" };
+
+oAuth2Client.setCredentials(creds);
 
 /**
  * Build and encode raw email for Gmail API
  */
-const buildEmail = (to, subject, html, attachments = []) => {
+
+const buildEmail = (data: BuildEmail) => {
+  const { to, subject, html, attachments = [] } = data;
   const boundary = "__boundary__";
 
   const messageParts = [];
@@ -46,7 +52,7 @@ const buildEmail = (to, subject, html, attachments = []) => {
 /**
  * Send verification email via Gmail API
  */
-const sendVerificationEmail = async (email, token) => {
+export const sendVerificationEmail = async (email: string, token: string) => {
   const gmail = google.gmail({ version: "v1", auth: oAuth2Client });
 
   const html = `
@@ -153,13 +159,22 @@ const sendVerificationEmail = async (email, token) => {
         </html>
   `;
 
-  const raw = buildEmail(email, "Account Verification", html, [
-    {
-      filename: "AREA_15.png",
-      path: "./src/assets/AREA_15.png",
-      cid: "area15logo",
-    },
-  ]);
+  // Send verification email
+  const userEmail: BuildEmail = {
+    to: email,
+    subject: "Account Verification",
+    html,
+    attachments: [
+      {
+        filename: "AREA_15.png",
+        path: "./src/assets/AREA_15.png",
+        cid: "area15logo",
+      },
+    ],
+  };
+
+  // Build and encode raw email
+  const raw = buildEmail(userEmail);
 
   const res = await gmail.users.messages.send({
     userId: "me",
@@ -170,5 +185,3 @@ const sendVerificationEmail = async (email, token) => {
 
   return res.data;
 };
-
-export default sendVerificationEmail;

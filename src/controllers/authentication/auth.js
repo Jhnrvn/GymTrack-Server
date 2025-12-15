@@ -8,7 +8,7 @@ import jwt from "jsonwebtoken";
 import { partialHiddenEmail } from "../../utils/hideEmail.utils.js";
 
 // send email
-import sendVerificationEmail from "../../utils/sendVerificationEmail.js";
+import sendVerificationEmail from "../../utils/sendVerification.utils.js";
 import sendCodeToChangePassword from "../../utils/sendCodeToChangePassword.js";
 
 // models

@@ -1,5 +1,6 @@
 {
   "watch": ["src"],
-  "ext": "ts, css, ejs, json",
+  "ext": "ts,js,json",
+  "ignore": ["dist", "node_modules"],
   "exec": "tsx ./src/index.ts"
 }
