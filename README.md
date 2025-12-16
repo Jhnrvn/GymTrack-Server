@@ -9,7 +9,7 @@ Backend REST API for GymTrack built with TypeScript, Express, and Mongoose
 
 #### Authentication
 
-```http
+```
   GET /api/v1/
 ```
 
@@ -19,7 +19,7 @@ Backend REST API for GymTrack built with TypeScript, Express, and Mongoose
 
 #### Get item
 
-```http
+```
   GET /api/items/${id}
 ```
 

@@ -4,15 +4,18 @@ const secretKey = process.env.SECRET_KEY;
 import jwt from "jsonwebtoken";
 // models
 import { UserModel } from "../models/user.model.js";
+import { LogModel } from "../models/logs.model.js";
 // types
-import type { User, UserDocument } from "../models/user.model.js";
-import type { CreateUserDto } from "../dtos/user.dtos.js";
+import type { UserDocument } from "../models/user.model.js";
+import type { LogDocument } from "../models/logs.model.js";
+import type { CreateUserDto, LoginUserDto } from "../dtos/user.dtos.js";
 // utils
 import { AppError } from "../utils/error.utils.js";
 import { sendVerificationEmail } from "../utils/sendVerification.utils.js";
 
 // services
 export class AuthServices {
+  // register user
   static async register(data: CreateUserDto): Promise<void> {
     const { email, password, isAgree, name } = data;
     const salt: number = 13;
@@ -56,5 +59,49 @@ export class AuthServices {
     return;
   }
 
-  static async login() {}
+  // login user
+  static async login(data: LoginUserDto): Promise<string> {
+    const { email, password } = data;
+
+    const user: UserDocument | null = await UserModel.findOne({ email });
+
+    // check if user exist
+    if (!user) {
+      throw new AppError("User not found", "User not found", 404);
+    }
+
+    const isMatch: boolean = await bcrypt.compare(password, user.password);
+
+    // check if password is correct
+    if (!isMatch) {
+      throw new AppError("Invalid credentials", "The email or password you entered is incorrect", 401);
+    }
+
+    // check if user is blocked
+    if (user.isBlocked) {
+      throw new AppError("Your account is blocked", "Your account is blocked", 401);
+    }
+
+    // check if user is verified
+    if (!user.isVerified) {
+      throw new AppError("Unauthorized", "Your account is not verified ", 401);
+    }
+
+    // check if user is permitted
+    if (!user.isPermitted) {
+      throw new AppError("Unauthorized", "User is not permitted", 401);
+    }
+
+    // payload
+    const userData: { id: string } = {
+      id: user._id.toString(),
+    };
+
+    // generate token
+    const token: string = jwt.sign(userData, secretKey as string, { expiresIn: "1d" });
+
+    // [ ] todo: create new log and save
+
+    return token;
+  }
 }

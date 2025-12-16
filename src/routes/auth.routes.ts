@@ -10,5 +10,6 @@ import { generateName } from "../middlewares/generateName.js";
 
 // endpoints
 authRouter.post("/register", generateName, UserController.register);
+authRouter.post("/login", UserController.login);
 
 export default authRouter;

@@ -9,3 +9,8 @@ export interface CreateUserDto {
   profile_picture?: string;
   verification_token?: string;
 }
+
+export interface LoginUserDto {
+  email: string;
+  password: string;
+}
