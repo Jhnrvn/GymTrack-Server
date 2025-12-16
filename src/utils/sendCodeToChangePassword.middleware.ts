@@ -1,17 +1,20 @@
 import { google } from "googleapis";
 import "dotenv/config";
 import fs from "fs";
+// types
+import type { BuildEmail } from "./utils.dto.js";
 
-const { app_email, CLIENT_ID, CLIENT_SECRET, REDIRECT_URI, REFRESH_TOKEN, verify_URL } = process.env;
+const { app_email, CLIENT_ID, CLIENT_SECRET, REDIRECT_URI, REFRESH_TOKEN } = process.env;
 
 const oAuth2Client = new google.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URI);
 
-oAuth2Client.setCredentials({ refresh_token: REFRESH_TOKEN });
+oAuth2Client.setCredentials({ refresh_token: REFRESH_TOKEN || "" });
 
 /**
  * Build and encode raw email for Gmail API
  */
-const buildEmail = (to, subject, html, attachments = []) => {
+const buildEmail = (data: BuildEmail) => {
+  const { to, subject, html, attachments = [] } = data;
   const boundary = "__boundary__";
 
   const messageParts = [];
@@ -46,7 +49,7 @@ const buildEmail = (to, subject, html, attachments = []) => {
 /**
  * Send verification email via Gmail API
  */
-const sendCodeToChangePassword = async (email, code) => {
+export const sendCodeToChangePassword = async (email: string, code: string) => {
   const gmail = google.gmail({ version: "v1", auth: oAuth2Client });
 
   const html = `
@@ -154,13 +157,21 @@ const sendCodeToChangePassword = async (email, code) => {
         </html>
   `;
 
-  const raw = buildEmail(email, "Password Reset", html, [
-    {
-      filename: "AREA_15.png",
-      path: "./src/assets/AREA_15.png",
-      cid: "area15logo",
-    },
-  ]);
+  const userEmail: BuildEmail = {
+    to: email,
+    subject: "Password Reset Request",
+    html,
+    attachments: [
+      {
+        filename: "AREA_15.png",
+        path: "./src/assets/AREA_15.png",
+        cid: "area15logo",
+      },
+    ],
+  };
+
+  // Send email
+  const raw = buildEmail(userEmail);
 
   const res = await gmail.users.messages.send({
     userId: "me",
@@ -171,5 +182,3 @@ const sendCodeToChangePassword = async (email, code) => {
 
   return res.data;
 };
-
-export default sendCodeToChangePassword;

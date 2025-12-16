@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>GymTrack API</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+        font-family: Arial, sans-serif;
+      }
+
+      .container {
+        max-width: 800px;
+        margin: 40px auto;
+        background: #ffffff;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .header {
+        background-color: #262626;
+        padding: 30px;
+        text-align: center;
+      }
+
+      .header img {
+        width: 200px;
+        max-width: 100%;
+      }
+
+      .content {
+        padding: 25px;
+        text-align: center;
+      }
+
+      h1 {
+        font-size: 22px;
+        margin: 0;
+        color: #fec32b;
+      }
+
+      p {
+        font-size: 15px;
+        margin: 12px 0;
+        color: #444;
+      }
+
+      .description {
+        font-size: 13px;
+        text-align: justify;
+        margin-top: 20px;
+      }
+
+      .btn {
+        display: inline-block;
+        margin: 30px 0 15px;
+        background-color: #fec32b;
+        color: #262626;
+        text-decoration: none;
+        padding: 12px 30px;
+        font-size: 14px;
+        font-weight: bold;
+        border-radius: 2px;
+      }
+
+      .footer {
+        border-top: 1px solid #e0e0e0;
+        padding-top: 15px;
+        font-size: 11px;
+        color: gray;
+        font-style: italic;
+      }
+
+      @media screen and (max-width: 600px) {
+        .container {
+          margin: 20px;
+        }
+
+        h1 {
+          font-size: 18px;
+        }
+
+        p {
+          font-size: 14px;
+        }
+
+        .btn {
+          padding: 12px 18px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="header">
+        <!-- Replace with your real logo path -->
+        <h1>Area 15 Fitness Gym</h1>
+      </div>
+
+      <div class="content">
+        <h2>Welcome to GymTrack API</h2>
+
+        <p>Your backend service is up and running.</p>
+
+        <p class="description">
+          GymTrack API powers the Area 15 Fitness Gym management system. This server handles authentication, member
+          management, attendance tracking, payments, analytics, and integrations with desktop and mobile applications.
+        </p>
+
+        <a href="/api/health" class="btn">API Status</a>
+
+        <div class="footer">
+          This is a backend service endpoint. If you reached this page unintentionally, no action is required.
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

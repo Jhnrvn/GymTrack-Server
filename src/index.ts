@@ -15,8 +15,9 @@ import { connection } from "./configs/connection.js";
 await connection();
 
 // middlewares
-import { corsOptions } from "./middlewares/cors.js";
-import { globalRateLimiter } from "./middlewares/rateLimit.js";
+import { corsOptions } from "./middlewares/cors.middleware.js";
+import { globalRateLimiter } from "./middlewares/rateLimit.middleware.js";
+import { errorHandler } from "./middlewares/error.middleware.js";
 app.use(cors(corsOptions));
 app.use(express.json({ limit: "10mb" }));
 app.use(globalRateLimiter);
@@ -25,5 +26,8 @@ app.use(globalRateLimiter);
 app.get("/", rootRoutes);
 app.use("/api/v1/oauth", oAuth2Routes);
 app.use("/api/v1/auth/", authRoutes);
+
+// error
+app.use(errorHandler);
 
 app.listen(PORT, (): void => console.log(`Server running on http://localhost:${PORT}`));

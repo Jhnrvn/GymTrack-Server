@@ -32,7 +32,8 @@ const userSchema = new Schema(
 );
 
 // types
-export type User = InferSchemaType<typeof userSchema>;
+export type BaseUser = InferSchemaType<typeof userSchema>;
+export type User = Omit<BaseUser, "changePassword_code"> & { changePassword_code: string | null };
 export type UserDocument = HydratedDocument<User>;
 
 // models

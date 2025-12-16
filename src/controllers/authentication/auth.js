@@ -9,7 +9,7 @@ import { partialHiddenEmail } from "../../utils/hideEmail.utils.js";
 
 // send email
 import sendVerificationEmail from "../../utils/sendVerification.utils.js";
-import sendCodeToChangePassword from "../../utils/sendCodeToChangePassword.js";
+import sendCodeToChangePassword from "../../utils/sendCodeToChangePassword.middleware.js";
 
 // models
 import Admin from "../../models/Admin.js";

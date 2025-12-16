@@ -1,38 +1,65 @@
-
 # GymTrack API
 
 Backend REST API for GymTrack built with TypeScript, Express, and Mongoose
 
-
-
 ## API Reference
 
-#### Authentication
+#### **Authentication**
+
+#### User registration:
 
 ```
-  GET /api/v1/
+  POST /api/v1/auth/register
 ```
 
-| Parameter | Type     | Description                |
-| :-------- | :------- | :------------------------- |
-| `api_key` | `string` | **Required**. Your API key |
+| Request Body | Type      | Required | Description              |
+| :----------- | :-------- | :------- | :----------------------- |
+| `email`      | `string`  | `true`   | user valid email address |
+| `password`   | `string`  | `true`   | user password            |
+| `isAgree`    | `boolean` | `true`   | user agreement to terms  |
 
-#### Get item
+#### User login:
 
 ```
-  GET /api/items/${id}
+  POST /api/v1/auth/login
 ```
 
-| Parameter | Type     | Description                       |
-| :-------- | :------- | :-------------------------------- |
-| `id`      | `string` | **Required**. Id of item to fetch |
+| Request Body | Type     | Required | Description              |
+| :----------- | :------- | :------- | :----------------------- |
+| `email`      | `string` | `true`   | user valid email address |
+| `password`   | `string` | `true`   | user password            |
 
-#### add(num1, num2)
+#### User change password:
 
-Takes two numbers and returns the sum.
+```
+  PATCH /api/v1/auth/change-password
+```
 
+| Request Body       | Type     | Required | Description         |
+| :----------------- | :------- | :------- | :------------------ |
+| `current_password` | `string` | `true`   | user existing email |
+| `new_password`     | `string` | `true`   | user new password   |
+
+#### User forgot password:
+
+```
+  PATCH /api/v1/auth/forgot-password
+```
+
+| Request Body | Type     | Required | Description         |
+| :----------- | :------- | :------- | :------------------ |
+| `email`      | `string` | `true`   | user existing email |
+
+```
+  PATCH /api/v1/auth/reset-password
+```
+
+| Request Body | Type     | Required | Description         |
+| :----------- | :------- | :------- | :------------------ |
+| `email`      | `string` | `true`   | user existing email |
+| `password`   | `string` | `true`   | user new password   |
+| `code`       | `string` | `true`   | user password code  |
 
 ## Authors
 
 - [@Jhnrvn](https://github.com/Jhnrvn)
-

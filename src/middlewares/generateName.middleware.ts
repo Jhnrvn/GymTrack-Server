@@ -58,5 +58,3 @@ export const generateName = async (req: Request, res: Response, next: NextFuncti
     }
   }
 };
-
-
