@@ -16,7 +16,7 @@ type User = {
 };
 type AuthenticateRequest = Request<{}, unknown, ChangePasswordDto> & { user: User };
 
-// controllers
+//User auth controllers
 export class UserController {
   // i: register
   static async register(req: Request<{}, unknown, CreateUserDto>, res: Response): Promise<void> {

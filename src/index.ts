@@ -9,6 +9,7 @@ const PORT = process.env.PORT || 3000;
 import rootRoutes from "./routes/root.routes.js";
 import oAuth2Routes from "./routes/oAuth2.routes.js";
 import authRoutes from "./routes/auth.routes.js";
+import userFingerprintRoutes from "./routes/userFingerprint.routes.js";
 
 // mongodb connection
 import { connection } from "./configs/connection.js";
@@ -26,6 +27,7 @@ app.use(globalRateLimiter);
 app.get("/", rootRoutes);
 app.use("/api/v1/oauth", oAuth2Routes);
 app.use("/api/v1/auth/", authRoutes);
+app.use("/api/v1/user/fingerprint", userFingerprintRoutes);
 
 // error
 app.use(errorHandler);

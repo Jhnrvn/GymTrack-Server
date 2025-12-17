@@ -1,5 +1,6 @@
 import express from "express";
 import type { Router } from "express";
+// express router instance
 const authRouter: Router = express.Router();
 // utils
 import { asyncHandler } from "../utils/asyncHandler.utils.js";
@@ -19,4 +20,3 @@ authRouter.patch("/forgot-password", generateCode, asyncHandler(UserController.f
 authRouter.patch("/reset-password", asyncHandler(UserController.resetPassword));
 
 export default authRouter;
-``;
