@@ -94,10 +94,12 @@ export class userFingerprintServices {
       throw new AppError("User not found", "User not found", 404);
     }
 
+    // check if fingerprint exist
     if (!user.isEnrolled) {
       throw new AppError("Fingerprint not found", "Fingerprint not found", 404);
     }
 
+    // delete fingerprint
     await UserBiometricModel.deleteMany({ user_id: id });
     user.isEnrolled = false;
     user.enrolledAt = null;

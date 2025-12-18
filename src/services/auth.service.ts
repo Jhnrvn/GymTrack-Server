@@ -1,4 +1,4 @@
- import bcrypt from "bcrypt";
+import bcrypt from "bcrypt";
 import crypto from "crypto";
 const secretKey = process.env.SECRET_KEY;
 import jwt from "jsonwebtoken";
@@ -101,6 +101,22 @@ export class AuthServices {
     return token;
   }
 
+  // i: verify user account
+  static async verifyAccount(token: string): Promise<void> {
+    // find user and check if user exist
+    const user: UserDocument | null = await UserModel.findOne({ verification_token: token });
+    if (!user) {
+      throw new AppError("User not found", "User not found", 404);
+    }
+
+    // update user
+    user.isVerified = true;
+    user.verification_token = null;
+    await user.save();
+
+    return;
+  }
+
   // i: change user password
   static async changePassword(data: ChangePasswordDto, user: { id: string }): Promise<void> {
     const { current_password, new_password } = data;
@@ -161,8 +177,10 @@ export class AuthServices {
       throw new AppError("Invalid code", "Invalid code", 400);
     }
 
+    // hash password
     const hashedPassword = await bcrypt.hash(password, 13);
 
+    // update user
     userExist.password = hashedPassword;
     userExist.changePassword_code = null;
 

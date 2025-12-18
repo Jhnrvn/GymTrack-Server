@@ -1,65 +1,56 @@
-# GymTrack API
+# Project Documentation Hub
 
-Backend REST API for GymTrack built with TypeScript, Express, and Mongoose
+Welcome to the **centralized documentation** for this project!  
+This README serves as the **main entry point** to find detailed documentation for each part of the system.
 
-## API Reference
+---
 
-#### **Authentication**
+## 📂 Table of Contents
 
-#### User registration:
+### API Routes
 
-```
-  POST /api/v1/auth/register
-```
+- [Auth Routes](./docs/auth/README.md) – Login, Register, Google Login, Logout
+- [User Routes](./docs/user/README.md) – Get, Create, Update, Delete Users
+- [Products Routes](./docs/products/README.md) – CRUD for Products
+- [Orders Routes](./docs/orders/README.md) – Checkout, Payment, Order History
+- [Biometric Routes](./docs/biometric/README.md) – Fingerprint Enrollment & Login
 
-| Request Body | Type      | Required | Description              |
-| :----------- | :-------- | :------- | :----------------------- |
-| `email`      | `string`  | `true`   | user valid email address |
-| `password`   | `string`  | `true`   | user password            |
-| `isAgree`    | `boolean` | `true`   | user agreement to terms  |
+---
 
-#### User login:
+## Notes
 
-```
-  POST /api/v1/auth/login
-```
+- Each module folder (`docs/<module>`) contains a dedicated README with **examples, request/response formats, and error codes**.
+- Use this hub to **quickly navigate** to the documentation you need.
+- All code snippets are written in **TypeScript** unless stated otherwise.
 
-| Request Body | Type     | Required | Description              |
-| :----------- | :------- | :------- | :----------------------- |
-| `email`      | `string` | `true`   | user valid email address |
-| `password`   | `string` | `true`   | user password            |
+---
 
-#### User change password:
+## Technologies Used
 
-```
-  PATCH /api/v1/auth/change-password
-```
+- **Backend:** Node.js, Express, TypeScript, Mongoose
+- **Database:** MongoDB Atlas
+- **Deployment:** Render, MongoDB Atlas
 
-| Request Body       | Type     | Required | Description         |
-| :----------------- | :------- | :------- | :------------------ |
-| `current_password` | `string` | `true`   | user existing email |
-| `new_password`     | `string` | `true`   | user new password   |
+---
 
-#### User forgot password:
+## Features
 
-```
-  PATCH /api/v1/auth/forgot-password
-```
+- Full CRUD for all main resources
+- Authentication with JWT
+- Biometric authentication support
 
-| Request Body | Type     | Required | Description         |
-| :----------- | :------- | :------- | :------------------ |
-| `email`      | `string` | `true`   | user existing email |
+---
 
-```
-  PATCH /api/v1/auth/reset-password
-```
+## Author
 
-| Request Body | Type     | Required | Description         |
-| :----------- | :------- | :------- | :------------------ |
-| `email`      | `string` | `true`   | user existing email |
-| `password`   | `string` | `true`   | user new password   |
-| `code`       | `string` | `true`   | user password code  |
+**John Irvin Geanga**
 
-## Authors
+- GitHub: [github.com/Jhnrvn](https://github.com/Jhnrvn)
+- Email: johnirvingeanga@gmail.com
+- LinkedIn: [linkedin.com/in/john-irvin-geanga](https://www.linkedin.com/in/john-irvin-geanga-24b31b299/)
 
-- [@Jhnrvn](https://github.com/Jhnrvn)
+---
+
+## 📄 License
+
+MIT License © 2025 John Irvin Geanga

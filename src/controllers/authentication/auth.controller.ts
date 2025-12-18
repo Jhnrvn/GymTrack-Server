@@ -38,6 +38,15 @@ export class UserController {
     res.status(200).json({ header: "Login Success", message: "You have successfully logged in", success: true, token });
   }
 
+  // i: verify account
+  static async verifyAccount(req: Request<{}, unknown, {}, { token: string }>, res: Response): Promise<void> {
+    // verify user account
+    await AuthServices.verifyAccount(req.query.token);
+
+    // response success
+    res.status(200).send("Account verified. You can now log in.");
+  }
+
   // i: change password
   static async changePassword(req: AuthenticateRequest, res: Response): Promise<void> {
     // change password of the user

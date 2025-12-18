@@ -8,12 +8,12 @@ import { userFingerprintServices } from "../../services/userFingerprint.service.
 export class UserFingerprintController {
   //  get all user fingerprints
   static async getFingerprints(req: Request<{}, unknown, UserBiometricTemplateDto>, res: Response): Promise<void> {
-    // get all user fingerprints
+    // i: get all user fingerprints
     const fingerprint = await userFingerprintServices.getFingerprintTemplates();
 
     res.status(200).json({ success: true, templates: fingerprint });
   }
-  //  login user using fingerprint
+  // i:  login user using fingerprint
   static async userFingerprintLogin(
     req: Request<{}, unknown, Omit<UserBiometricDto, "fingerprint">>,
     res: Response
@@ -28,7 +28,7 @@ export class UserFingerprintController {
     });
   }
 
-  //  enroll user fingerprint
+  // i:  enroll user fingerprint
   static async enrollUserFingerprint(
     req: Request<{}, unknown, { id: string; fingerprint: string }>,
     res: Response
@@ -42,7 +42,7 @@ export class UserFingerprintController {
     });
   }
 
-  //  delete user fingerprint
+  // i:  delete user fingerprint
   static async deleteUserFingerprint(
     req: Request<{}, unknown, Omit<UserBiometricDto, "fingerprint">>,
     res: Response
