@@ -5,8 +5,8 @@ const secretKey = process.env.SECRET_KEY;
 import { UserBiometricModel } from "../models/userBiometric.model.js";
 import { UserModel } from "../models/user.model.js";
 // types
-import type { UserBiometric, UserBiometricDocument } from "../models/userBiometric.model.js";
-import type { User, UserDocument } from "../models/user.model.js";
+import type { UserBiometricDocument } from "../models/userBiometric.model.js";
+import type { UserDocument } from "../models/user.model.js";
 import type { UserBiometricTemplateDto, UserBiometricDto } from "../dtos/user.dtos.js";
 // utils
 import { AppError } from "../utils/error.utils.js";

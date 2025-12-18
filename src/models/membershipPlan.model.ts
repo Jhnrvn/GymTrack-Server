@@ -24,8 +24,8 @@ const membershipPlanSchema = new Schema(
 );
 
 // types
-export type Plan = InferSchemaType<typeof membershipPlanSchema>;
-export type PlanDocument = HydratedDocument<Plan>;
+export type Membership = InferSchemaType<typeof membershipPlanSchema>;
+export type MembershipDocument = HydratedDocument<Membership>;
 
 // model
-export const Membership = mongoose.models.Plan || model("Membership", membershipPlanSchema);
+export const MembershipModel = mongoose.models.Plan || model("Membership", membershipPlanSchema);
