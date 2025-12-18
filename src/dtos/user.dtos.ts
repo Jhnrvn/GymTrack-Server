@@ -1,3 +1,6 @@
+import type { Types } from "mongoose";
+import type { UserBiometricDocument } from "../models/userBiometric.model.js";
+
 // create new user
 export interface CreateUserDto {
   email: string;
@@ -31,3 +34,16 @@ export interface ForgotPasswordDto {
 
 // reset password
 export type resetPassword = ForgotPasswordDto & { password: string };
+
+// user biometric template
+export interface UserBiometricTemplateDto {
+  _id: Types.ObjectId | string;
+  member_id: Types.ObjectId | string;
+  template: string;
+}
+
+// user biometric
+export interface UserBiometricDto {
+  id: string;
+  fingerprint: string;
+}

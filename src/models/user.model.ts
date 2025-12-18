@@ -22,7 +22,7 @@ const userSchema = new Schema(
     isAgree: { type: Boolean, default: false },
     role: { type: String, enum: ["Admin", "Staff"], default: "Staff" },
     isEnrolled: { type: Boolean, default: false },
-    enrolledAt: { type: Date, default: Date.now },
+    enrolledAt: { type: Date, default: Date.now, required: false },
     active: { type: Boolean, default: false },
     last_update: { type: Date, default: null },
   },

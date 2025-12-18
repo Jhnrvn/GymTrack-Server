@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import type { InferSchemaType, HydratedDocument } from "mongoose";
+import type { InferSchemaType, HydratedDocument, Types } from "mongoose";
 import { Schema, model } from "mongoose";
 
 // schema
@@ -23,6 +23,7 @@ const UserBiometricSchema = new Schema(
 // types
 export type UserBiometric = InferSchemaType<typeof UserBiometricSchema>;
 export type UserBiometricDocument = HydratedDocument<UserBiometric>;
+
 
 // models
 export const UserBiometricModel = mongoose.models.UserBiometric || model("UserBiometric", UserBiometricSchema);

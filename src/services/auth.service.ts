@@ -1,4 +1,4 @@
-import bcrypt from "bcrypt";
+ import bcrypt from "bcrypt";
 import crypto from "crypto";
 const secretKey = process.env.SECRET_KEY;
 import jwt from "jsonwebtoken";
