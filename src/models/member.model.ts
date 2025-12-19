@@ -16,7 +16,7 @@ const memberSchema = new Schema({
   firstName: { type: String, required: true, trim: true },
   lastName: { type: String, required: true, trim: true },
   age: { type: Number, min: 14, default: 14 },
-  email: { type: String, unique: true, sparse: true, lowercase: true, trim: true },
+  email: { type: String, unique: true, sparse: true, lowercase: true, trim: true, required: false },
   password: { type: String },
   changePassword_code: { type: String },
   gender: { type: String, enum: ["Male", "Female"] },

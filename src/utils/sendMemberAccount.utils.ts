@@ -1,17 +1,20 @@
 import { google } from "googleapis";
 import "dotenv/config";
 import fs from "fs";
+// types
+import type { BuildEmail } from "./utils.dto.js";
 
 const { app_email, CLIENT_ID, CLIENT_SECRET, REDIRECT_URI, REFRESH_TOKEN, verify_URL } = process.env;
 
 const oAuth2Client = new google.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URI);
 
-oAuth2Client.setCredentials({ refresh_token: REFRESH_TOKEN });
+oAuth2Client.setCredentials({ refresh_token: REFRESH_TOKEN || "" });
 
 /**
  * Build and encode raw email for Gmail API
  */
-const buildEmail = (to, subject, html, attachments = []) => {
+const buildEmail = (data: BuildEmail) => {
+  const { to, subject, html, attachments = [] } = data;
   const boundary = "__boundary__";
 
   const messageParts = [];
@@ -46,7 +49,7 @@ const buildEmail = (to, subject, html, attachments = []) => {
 /**
  * Send verification email via Gmail API
  */
-const sendMemberAccountEmail = async (email, password) => {
+export const sendMemberAccountEmail = async (email: string, password: string) => {
   const gmail = google.gmail({ version: "v1", auth: oAuth2Client });
 
   const html = `
@@ -166,13 +169,20 @@ const sendMemberAccountEmail = async (email, password) => {
             </html>
   `;
 
-  const raw = buildEmail(email, "Account Credentials", html, [
-    {
-      filename: "AREA_15.png",
-      path: "./src/assets/AREA_15.png",
-      cid: "area15logo",
-    },
-  ]);
+  const memberEmail: BuildEmail = {
+    to: email,
+    subject: "Account Credentials",
+    html,
+    attachments: [
+      {
+        filename: "AREA_15.png",
+        path: "./src/assets/AREA_15.png",
+        cid: "area15logo",
+      },
+    ],
+  };
+
+  const raw = buildEmail(memberEmail);
 
   const res = await gmail.users.messages.send({
     userId: "me",
@@ -183,5 +193,3 @@ const sendMemberAccountEmail = async (email, password) => {
 
   return res.data;
 };
-
-export default sendMemberAccountEmail;

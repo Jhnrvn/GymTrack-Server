@@ -2,39 +2,34 @@
 import { MembershipModel } from "../models/membershipPlan.model.js";
 // types
 import type { Request, Response, NextFunction } from "express";
-import { MembershipDocument } from "../models/membershipPlan.model.js";
-import { Member, MemberDocument } from "../models/member.model.js";
+import type { MembershipDocument } from "../models/membershipPlan.model.js";
+import type { MemberWithPriceInfo } from "../dtos/member.dtos.js";
 // utility
 import { AppError } from "../utils/error.utils.js";
 
-const getPrice = async (
-  req: Request<{}, unknown, { discount_rate: number; plan: string }>,
+// get price
+export const getPrice = async (
+  req: Request<{}, unknown, MemberWithPriceInfo>,
   res: Response,
   next: NextFunction
 ): Promise<void> => {
-  const { discount_rate, plan } = req.body;
+  const { discount_rate, membership_plan_id } = req.body;
 
-  try {
-    const discountRate = Number(discount_rate);
-    const membershipPlan: MembershipDocument | null = await MembershipModel.findById(plan);
+  // convert the discount rate to number
+  const discountRate: number = Number(discount_rate);
 
-    if (!membershipPlan) {
-      throw new AppError("Membership plan not found", "Membership plan not found", 404);
-    }
-
-    const price = membershipPlan.plan_price;
-
-    req.body.discount_rate = discountRate;
-    req.body.price = price - price * discountRate;
-
-    next();
-  } catch (error) {
-    res.status(500).json({
-      header: "Internal Server Error",
-      message: error.message,
-      success: false,
-    });
+  // get the membership plan
+  const membershipPlan: MembershipDocument | null = await MembershipModel.findById(membership_plan_id);
+  if (!membershipPlan) {
+    throw new AppError("Membership plan not found", "Membership plan not found", 404);
   }
-};
 
-export default getPrice;
+  // get the price
+  const price: number = membershipPlan.plan_price;
+
+  // set the discount rate and price
+  req.body.discount_rate = discountRate;
+  req.body.price = price - price * discountRate;
+
+  next();
+};

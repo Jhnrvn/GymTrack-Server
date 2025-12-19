@@ -27,7 +27,7 @@ app.use(globalRateLimiter);
 // API
 app.get("/", rootRoutes);
 app.use("/api/v1/oauth", oAuth2Routes);
-app.use("/api/v1/auth/", authRoutes);
+app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/user/fingerprint", userFingerprintRoutes);
 app.use("/api/v1/member/", memberRoutes);
 
