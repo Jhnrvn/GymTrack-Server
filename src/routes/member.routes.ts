@@ -14,7 +14,7 @@ import { formatName } from "../middlewares/formatName.middleware.js";
 // endpoints
 memberRouter.get("/", asyncHandler(MemberController.getAllMembers));
 memberRouter.get("/", asyncHandler(MemberController.getMemberDetails));
-memberRouter.get("/", formatName, asyncHandler(MemberController.addMembers));
+memberRouter.post("/", asyncHandler(formatName), asyncHandler(MemberController.addMembers));
 memberRouter.get("/", asyncHandler(MemberController.renewMembershipPlan));
 memberRouter.get("/", asyncHandler(MemberController.changeMembershipPlan));
 memberRouter.get("/", asyncHandler(MemberController.updateMemberDetails));

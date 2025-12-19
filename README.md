@@ -9,11 +9,11 @@ This README serves as the **main entry point** to find detailed documentation fo
 
 ### API Routes
 
-- [Auth Routes](./docs/auth/README.md) – Login, Register, Google Login, Logout
-- [User Routes](./docs/user/README.md) – Get, Create, Update, Delete Users
-- [Products Routes](./docs/products/README.md) – CRUD for Products
-- [Orders Routes](./docs/orders/README.md) – Checkout, Payment, Order History
+- [Auth Routes](./src/docs/userAuth.md) – Registration, Login, Password Reset etc.
 - [Biometric Routes](./docs/biometric/README.md) – Fingerprint Enrollment & Login
+- [User Routes](./docs/user/README.md) – Get, Create, Update, Delete Users
+- [Membership Routes](./docs/products/README.md) – Get, Create, Update, Delete Memberships
+- [Member Routes](./docs/orders/README.md) – CRUD for Members
 
 ---
 
@@ -51,6 +51,6 @@ This README serves as the **main entry point** to find detailed documentation fo
 
 ---
 
-## 📄 License
+## License
 
 MIT License © 2025 John Irvin Geanga

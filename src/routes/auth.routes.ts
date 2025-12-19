@@ -14,6 +14,7 @@ import { generateCode } from "../middlewares/generateCode.middleware.js";
 
 // endpoints
 authRouter.post("/register", generateName, asyncHandler(UserController.register));
+authRouter.post("/verify", asyncHandler(UserController.verifyAccount));
 authRouter.post("/login", asyncHandler(UserController.login));
 authRouter.patch("/change-password", asyncHandler(UserController.changePassword));
 authRouter.patch("/forgot-password", generateCode, asyncHandler(UserController.forgotPassword));
