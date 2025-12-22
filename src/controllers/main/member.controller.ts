@@ -1,12 +1,11 @@
 //  types
 import type { Request, Response } from "express";
-import type { CreateMemberCompleteDto, SanitizedCreateMemberDto } from "../../dtos/member.dtos.js";
+import type { CreateMemberCompleteDto, SanitizedCreateMemberDto, RenewMemberPlanDto } from "../../dtos/member.dtos.js";
+import type { ReqUserType } from "../../types/user.types.js";
 // dtos
-export type AddMemberRequestDto = Request<{}, unknown, SanitizedCreateMemberDto> & {
-  user: {
-    id: string;
-  };
-};
+export type AddMemberRequestDto = Request<{}, unknown, SanitizedCreateMemberDto> & ReqUserType;
+export type RenewMemberRequestDto = Request<{}, unknown, RenewMemberPlanDto> & ReqUserType;
+
 // services
 import { MemberService } from "../../services/member.service.js";
 
@@ -23,7 +22,6 @@ export class MemberController {
 
   // add members
   static async addMembers(req: AddMemberRequestDto, res: Response): Promise<void> {
-
     await MemberService.addMembers(req.body, req.user.id);
 
     // response success
@@ -31,8 +29,8 @@ export class MemberController {
   }
 
   // renew membership plan
-  static async renewMembershipPlan(req: Request, res: Response): Promise<void> {
-    await MemberService.renewMembershipPlan();
+  static async renewMembershipPlan(req: RenewMemberRequestDto, res: Response): Promise<void> {
+    await MemberService.renewMembershipPlan(req.body, req.user.id);
   }
 
   // change membership plan

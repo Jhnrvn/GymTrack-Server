@@ -21,6 +21,8 @@ memberRouter.use(authentication);
 // endpoints
 // memberRouter.get("/", asyncHandler(MemberController.getAllMembers));
 // memberRouter.get("/", asyncHandler(MemberController.getMemberDetails));
+
+// add members
 memberRouter.post(
   "/",
   asyncHandler(formatName),
@@ -30,7 +32,14 @@ memberRouter.post(
   asyncHandler(generatePassword),
   asyncHandler(MemberController.addMembers)
 );
-// memberRouter.get("/", asyncHandler(MemberController.renewMembershipPlan));
+
+// renew membership
+memberRouter.patch(
+  "/renew",
+  asyncHandler(getPrice),
+  asyncHandler(getEndDate),
+  asyncHandler(MemberController.renewMembershipPlan)
+);
 // memberRouter.get("/", asyncHandler(MemberController.changeMembershipPlan));
 // memberRouter.get("/", asyncHandler(MemberController.updateMemberDetails));
 

@@ -25,3 +25,12 @@ export type SanitizedCreateMemberDto = Omit<CreateMemberCompleteDto, "email"> & 
   hashedPassword: string;
   password: string;
 };
+
+// renew member plan dto
+export type RenewMemberPlanDto = {
+  id: string;
+  plan: string;
+  discount_rate: number;
+  price: number;
+  endDate: string;
+};

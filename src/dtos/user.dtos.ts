@@ -1,3 +1,4 @@
+// types
 import type { Types } from "mongoose";
 import type { UserBiometricDocument } from "../models/userBiometric.model.js";
 
